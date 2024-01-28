@@ -10,10 +10,6 @@
     transition: background-color 1s linear;
 }
 
-.hidden{
-    display: none;
-}
-
 .btn{
     padding: 10px;
     width: 200px;

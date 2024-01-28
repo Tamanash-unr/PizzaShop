@@ -1,15 +1,10 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import PizzaCard from './Components/pizzaCard';
+import MainSectionData from './Components/MainSectionData';
 
 function App() {
   const [orders, setOrders] = useState([]);
-  const status = {
-    0: "Order Placed",
-    1: "Order in Making",
-    2: "Order Ready",
-    3: "Order Picked"
-  }
 
   function testOrder(){
     const order = {
@@ -18,7 +13,7 @@ function App() {
       type: "Veg",
       size: "Large",
       base: "Thick",
-      placedAt: Date.now()
+      cancelled: false
     }
 
     let newOrders = [...orders];
@@ -41,9 +36,7 @@ function App() {
       setOrders(currentOrders);
   }
 
-  function getTimeElapsed(){
-
-  }
+  
 
   return (
     <div className="App">
@@ -109,14 +102,7 @@ function App() {
         </div>
         {
           orders.map((order)=>{
-            return (
-              <div className='data-container'>
-                <div className='main-data'>Order ID: {order.id}</div>
-                <div className='main-data'>{status[order.status]}</div>
-                <div className='main-data'>{order.placedAt}</div>
-                <div className='main-data'>{status[order.status]}</div>
-              </div>
-            )
+            return (<MainSectionData order={order}/>)
           })
         }
       </div>

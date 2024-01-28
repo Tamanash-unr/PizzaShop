@@ -6,12 +6,11 @@ function PizzaCard(props){
     const {order, updateStatus} = props;
     const orderId = `order-${order.id}`;
 
-    // Order States are in following Order {0: Created, 1: Making, 2: Ready, 3: Delivered}
-    const [orderState, setOrderState] = useState(order.status);
+    const [orderStage, setorderStage] = useState(order.status);
     var orderTime = 0;
 
     useEffect(()=>{
-        if(orderState < 3){
+        if(orderStage < 3){
             var OrderTimer = setInterval(() => {
                 document.getElementById(`${orderId}-time`).innerHTML = getTimePassed();
                 orderTime += 1;
@@ -26,7 +25,7 @@ function PizzaCard(props){
         } else {
             document.getElementById(`${orderId}-time`).innerHTML = "Order Picked";
         }
-    },[orderState])
+    },[orderStage])
 
     function getTimePassed(){
         let min = Math.floor(orderTime / 60);
@@ -46,11 +45,9 @@ function PizzaCard(props){
     }
 
     function nextStage(){
-        if(orderState <= 2){
-            setOrderState(orderState + 1);
-            updateStatus(order.id, orderState + 1);
-        } else {
-            console.log(orderState, "executed");
+        if(orderStage <= 2){
+            setorderStage(orderStage + 1);
+            updateStatus(order.id, orderStage + 1);
         }
     }
 
@@ -58,8 +55,9 @@ function PizzaCard(props){
         <div id={orderId} className="pizza-card">
             <h3>Order Number</h3>
             <p id={`${orderId}-time`}></p>
-            <button className="btn" onClick={() => nextStage()}>Next</button>
-            <button className="btn hidden">Cancel</button>
+            {
+                orderStage === 3 ? <></> : <button className="btn" onClick={() => nextStage()}>Next</button>
+            }
         </div>
     )
 }

@@ -35,7 +35,6 @@
 .main-section{
   width: 100%;
   text-align: center;
-  
 }
 
 .header-container, .data-container{
@@ -49,6 +48,9 @@
 }
 
 .main-data{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 25%;
   padding: 15px;
   border: 1px solid black;
