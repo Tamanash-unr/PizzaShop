@@ -1,20 +1,55 @@
-.container {
-  display: flex;
-  width: 100vw;
+.App{
+  padding: 15px;
+  overflow-x: hidden;
 }
 
-.orders-created{
+.section-header{}
+
+.pizza-stages {
+  display: flex;
+  width: 100%;
+  border: 2px solid black;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.orders-placed{
   width: 25%;
+  border-right: 2px solid black;
 }
 
 .orders-making{
   width: 25%;
+  border-right: 2px solid black;
 }
 
 .orders-ready{
   width: 25%;
+  border-right: 2px solid black;
 }
 
-.orders-delivered{
+.orders-picked{
   width: 25%;
+}
+
+.main-section{
+  width: 100%;
+  text-align: center;
+  
+}
+
+.header-container, .data-container{
+  width: 100%;
+  display: flex;
+}
+
+.main-head{
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.main-data{
+  width: 25%;
+  padding: 15px;
+  border: 1px solid black;
 }
