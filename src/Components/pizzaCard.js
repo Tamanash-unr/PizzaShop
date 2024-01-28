@@ -3,10 +3,10 @@ import "./pizzaCard.css";
 import { useState, useEffect} from "react";
 
 function PizzaCard(props){
-    const {order, updateStatus} = props;
+    const {order, updateStage} = props;
     const orderId = `order-${order.id}`;
 
-    const [orderStage, setorderStage] = useState(order.status);
+    const [orderStage, setorderStage] = useState(order.stage);
     var orderTime = 0;
 
     useEffect(()=>{
@@ -20,7 +20,9 @@ function PizzaCard(props){
             
             return () => {
                 clearInterval(OrderTimer);
-                document.getElementById(orderId).classList.remove("delayed");
+                if(document.getElementById(orderId)){
+                    document.getElementById(orderId).classList.remove("delayed");
+                }
             };
         } else {
             document.getElementById(`${orderId}-time`).innerHTML = "Order Picked";
@@ -47,7 +49,7 @@ function PizzaCard(props){
     function nextStage(){
         if(orderStage <= 2){
             setorderStage(orderStage + 1);
-            updateStatus(order.id, orderStage + 1);
+            updateStage(order.id, orderStage + 1);
         }
     }
 
@@ -56,7 +58,7 @@ function PizzaCard(props){
             <h3>Order Number</h3>
             <p id={`${orderId}-time`}></p>
             {
-                orderStage === 3 ? <></> : <button className="btn" onClick={() => nextStage()}>Next</button>
+                orderStage >= 3 ? <></> : <button className="btn" onClick={() => nextStage()}>Next</button>
             }
         </div>
     )

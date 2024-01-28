@@ -1,9 +1,19 @@
 .App{
-  padding: 15px;
   overflow-x: hidden;
 }
 
-.section-header{}
+.App-Body{
+  padding: 25px;
+}
+
+.page-top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 50px;
+  background-color: rgb(154, 154, 154);
+  color: white;
+}
 
 .pizza-stages {
   display: flex;
@@ -44,7 +54,7 @@
 
 .main-head{
   font-weight: bold;
-  font-size: 22px;
+  font-size: 22px !important;
 }
 
 .main-data{
@@ -54,4 +64,21 @@
   width: 25%;
   padding: 15px;
   border: 1px solid black;
+  font-size: 18px;
+}
+
+.totals-container{
+  display: flex;
+  width: 100%;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.total-data{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  padding: 15px;
+  border: 2px solid rgb(0, 194, 3);
 }

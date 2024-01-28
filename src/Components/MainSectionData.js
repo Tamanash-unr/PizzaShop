@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 
 function MainSectionData(props){
-    const {order} = props;
-    const status = {
-        '-1': "Cancelled", 
+    const {order, updateStage} = props;
+    const stage = {
+        9: "Cancelled", 
         0: "Order Placed",
         1: "Order in Making",
         2: "Order Ready",
@@ -13,7 +13,7 @@ function MainSectionData(props){
     var OrderTimer = useRef();
 
     useEffect(()=>{
-        if(order.status < 3){
+        if(order.stage < 3){
             OrderTimer.current = setInterval(() => {
                 document.getElementById(`${order.id}-elapsedTime`).innerHTML = getTimePassed();
                 orderTime += 1;
@@ -26,10 +26,10 @@ function MainSectionData(props){
     },[])
 
     useEffect(()=>{
-        if(order.status === 3){
+        if(order.stage >= 3){
             clearInterval(OrderTimer.current);
         }
-    }, [order.status]);
+    }, [order.stage]);
 
     function getTimePassed(){
         let min = Math.floor(orderTime / 60);
@@ -45,10 +45,10 @@ function MainSectionData(props){
     return (
         <div className='data-container'>
             <div className='main-data'>Order ID: {order.id}</div>
-            <div className='main-data'>{status[order.status]}</div>
+            <div className='main-data'>{stage[order.stage]}</div>
             <div id={`${order.id}-elapsedTime`} className='main-data'>{order.timeSpent}</div>
             <div className='main-data'>
-                {order.status === 3 ? <></> : <button className="btn">Cancel Order</button>}
+                {order.stage >= 2 ? <></> : <button className="btn" onClick={() => updateStage(order.id, 9)}>Cancel Order</button>}
             </div>
         </div>
     )
