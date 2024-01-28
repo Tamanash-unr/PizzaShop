@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 
 function MainSectionData(props){
     const {order, updateStage} = props;
+
+    // Stage Indexing
     const stage = {
         9: "Cancelled", 
         0: "Order Placed",
@@ -9,6 +11,7 @@ function MainSectionData(props){
         2: "Order Ready",
         3: "Order Picked"
       }
+
     var orderTime = 0;
     var OrderTimer = useRef();
 
@@ -46,7 +49,7 @@ function MainSectionData(props){
         <div className='data-container'>
             <div className='main-data'>Order ID: {order.id}</div>
             <div className='main-data'>{stage[order.stage]}</div>
-            <div id={`${order.id}-elapsedTime`} className='main-data'>{order.timeSpent}</div>
+            <div id={`${order.id}-elapsedTime`} className='main-data'>0 sec</div>
             <div className='main-data'>
                 {order.stage >= 2 ? <></> : <button className="btn" onClick={() => updateStage(order.id, 9)}>Cancel Order</button>}
             </div>

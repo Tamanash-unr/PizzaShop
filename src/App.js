@@ -1,5 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
+import OrderForm from './Components/OrderForm';
 import PizzaCard from './Components/pizzaCard';
 import MainSectionData from './Components/MainSectionData';
 
@@ -8,18 +9,10 @@ function App() {
   const [currentOrders, setCurrentOrders] = useState(0);
   const [placingOrder, setPlacingOrder] = useState(false);
 
-  function testOrder(){
+  function addOrder(order){
     if(currentOrders === 10){
-      alert("Cannot Accept Any More Orders")
+      alert("Not Taking anymore Orders for Now...")
       return
-    }
-
-    const order = {
-      id: Math.random() * (25 - 1) + 1,
-      stage: 0,
-      type: "Veg",
-      size: "Large",
-      base: "Thick",
     }
 
     let newOrders = [...orders];
@@ -30,16 +23,20 @@ function App() {
   }
 
   function updateOrderStage(id, stage){
-      const currentOrders = [...orders];
+      const handlingOrders = [...orders];
 
-      for(let i = 0; i < currentOrders.length; i++){
-        if(currentOrders[i].id === id){
-          currentOrders[i].stage = stage;
+      for(let i = 0; i < handlingOrders.length; i++){
+        if(handlingOrders[i].id === id){
+          handlingOrders[i].stage = stage;
           break;
         }
       }
 
-      setOrders(currentOrders);
+      setOrders(handlingOrders);
+      
+      if(stage >=3){
+        setCurrentOrders(currentOrders - 1);
+      }
   }
 
   function getTotalOrdersDelivered(){
@@ -59,8 +56,10 @@ function App() {
     <div className="App">
       <div className='page-top'>
         <h1>Pizza Shop</h1>
-        <button className='btn' onClick={testOrder}>Add Order</button>
+        <h3>Currently handling {currentOrders} Orders</h3>
+        <button className='btn' onClick={() => setPlacingOrder(true)}>Place Order</button>
       </div>
+      { placingOrder && <OrderForm addOrder={addOrder} placingOrder={setPlacingOrder} orderCount={orders.length}/>}
       <div className='App-Body'>
         <h2 className='section-header'>Pizza Stages</h2>
         <div className='pizza-stages'>

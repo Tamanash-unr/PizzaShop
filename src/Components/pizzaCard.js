@@ -9,6 +9,13 @@ function PizzaCard(props){
     const [orderStage, setorderStage] = useState(order.stage);
     var orderTime = 0;
 
+    // Delay Time Indexing
+    const delayTime = {
+        'small': 3,
+        'medium': 4,
+        'large': 5
+    }
+
     useEffect(()=>{
         if(orderStage < 3){
             var OrderTimer = setInterval(() => {
@@ -35,7 +42,7 @@ function PizzaCard(props){
 
         let htmlObj = document.getElementById(orderId);
 
-        if(min >= 1 && !htmlObj.classList.contains("delayed")){
+        if(min >= delayTime[order.size] && !htmlObj.classList.contains("delayed")){
             htmlObj.classList.add("delayed");
         }
 
@@ -55,8 +62,9 @@ function PizzaCard(props){
 
     return (
         <div id={orderId} className="pizza-card">
-            <h3>Order Number</h3>
-            <p id={`${orderId}-time`}></p>
+            <h3>Order ID : {order.id}</h3>
+            <div>Type: {order.type}, Size: {order.size}, Base: {order.base}</div>
+            <p id={`${orderId}-time`}>0 sec</p>
             {
                 orderStage >= 3 ? <></> : <button className="btn" onClick={() => nextStage()}>Next</button>
             }
